@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team vs. CloudTalk AI Voice Agent ROI Calculator</title>
+  <style>
+    /* Basic reset */
+    *, *:before, *:after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background: #f5f6fa;
+      color: #333;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    p.description {
+      text-align: center;
+      margin-bottom: 20px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .calculator-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .section h2 {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+      color: #444;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+    }
+    .field {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .field label {
+      flex: 1 1 250px;
+      margin-right: 10px;
+      font-weight: 600;
+    }
+    .field input[type="number"] {
+      flex: 1 1 150px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .field input[type="number"]:invalid {
+      border-color: #e74c3c;
+    }
+    .note {
+      font-size: 0.85em;
+      color: #777;
+    }
+    .results {
+      background: #fafafa;
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid #e5e5e5;
+    }
+    .results h3 {
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+    .results table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+    }
+    .results th,
+    .results td {
+      padding: 8px;
+      text-align: right;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .results th {
+      text-align: left;
+      color: #666;
+    }
+    .button-container {
+      text-align: center;
+      margin-top: 15px;
+    }
+    button {
+      background-color: #0078D4;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005fa3;
+    }
+    @media (max-width: 600px) {
+      .field {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .field label {
+        margin-bottom: 5px;
+      }
+      .field input[type="number"] {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Team vs. CloudTalk AI Voice Agent ROI Calculator</h1>
+  <p class="description">This tool compares the cost and revenue implications of running a contact center with a human team versus using CloudTalk’s AI voice agents. Adjust the parameters below to estimate the potential return on investment of adopting AI voice agents.</p>
+  <div class="calculator-container">
+    <!-- Human Team (Baseline) -->
+    <div class="section">
+      <h2>Human Team (Current Scenario)</h2>
+      <div class="field">
+        <label for="teamNumAgents">Number of agents</label>
+        <input type="number" id="teamNumAgents" value="10" min="1">
+      </div>
+      <div class="field">
+        <label for="teamAvgHourlyRate">Average hourly rate per agent ($)</label>
+        <input type="number" id="teamAvgHourlyRate" value="25" min="0" step="0.01">
+      </div>
+      <div class="field">
+        <label for="teamHoursPerAgent">Working hours per agent per month</label>
+        <input type="number" id="teamHoursPerAgent" value="160" min="0" step="1">
+      </div>
+      <div class="field">
+        <label for="teamCallsPerMonth">Calls handled per month</label>
+        <input type="number" id="teamCallsPerMonth" value="8000" min="0">
+      </div>
+      <div class="field">
+        <label for="teamHandleTime">Average handle time per call (minutes)</label>
+        <input type="number" id="teamHandleTime" value="5" min="0" step="0.1">
+      </div>
+      <div class="field">
+        <label for="teamTelephonyCost">Telephony cost per call ($)</label>
+        <input type="number" id="teamTelephonyCost" value="0.06" min="0" step="0.01">
+      </div>
+      <div class="field">
+        <label for="teamSoftwareCost">Software cost per agent per month ($)</label>
+        <input type="number" id="teamSoftwareCost" value="50" min="0" step="0.01">
+      </div>
+      <div class="field">
+        <label for="teamConversionRate">Conversion rate (sales per call) (%)</label>
+        <input type="number" id="teamConversionRate" value="5" min="0" max="100" step="0.1">
+      </div>
+      <div class="field">
+        <label for="teamAverageOrder">Average order value ($)</label>
+        <input type="number" id="teamAverageOrder" value="100" min="0" step="0.01">
+      </div>
+    </div>
+
+    <!-- AI Voice Agent Scenario -->
+    <div class="section">
+      <h2>AI Voice Agent Scenario</h2>
+      <div class="field">
+        <label for="aiCostPerMinute">AI cost per minute ($)</label>
+        <input type="number" id="aiCostPerMinute" value="0.25" min="0" step="0.01">
+        <span class="note">CloudTalk AI voice agents are billed per minute; typical costs range from $0.05–$0.25/min【974414839477333†L640-L655】【974414839477333†L752-L758】.</span>
+      </div>
+      <div class="field">
+        <label for="aiHandleTime">AI handle time per call (minutes)</label>
+        <input type="number" id="aiHandleTime" value="3" min="0" step="0.1">
+      </div>
+      <div class="field">
+        <label for="aiFallbackPercentage">Percentage of calls requiring human intervention (%)</label>
+        <input type="number" id="aiFallbackPercentage" value="10" min="0" max="100" step="1">
+        <span class="note">Some calls may still transfer to human agents for complex issues.</span>
+      </div>
+      <div class="field">
+        <label for="aiRevenueIncrease">Expected revenue increase (%)</label>
+        <input type="number" id="aiRevenueIncrease" value="3" min="0" max="100" step="0.1">
+        <span class="note">AI can enhance customer experience and upselling, leading to 2–3% revenue lift per 10% CSAT improvement【549616585912514†L418-L447】.</span>
+      </div>
+      <div class="field">
+        <label for="aiImplementationCost">One‑time implementation cost ($)</label>
+        <input type="number" id="aiImplementationCost" value="3000" min="0" step="0.01">
+        <span class="note">Includes setup, integration and training expenses.</span>
+      </div>
+    </div>
+
+    <!-- Calculation Button -->
+    <div class="button-container">
+      <button id="aiCalculateBtn">Calculate ROI</button>
+    </div>
+
+    <!-- Results Section -->
+    <div class="section results" id="aiResultsSection" style="display:none;">
+      <h3>Results</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Human Team</th>
+            <th>AI Voice Agent</th>
+          </tr>
+        </thead>
+        <tbody id="aiResultsBody">
+        </tbody>
+      </table>
+      <div id="aiSummary"></div>
+    </div>
+  </div>
+
+  <script>
+    function fmtCurrency(val) {
+      return "$" + val.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    }
+    document.getElementById('aiCalculateBtn').addEventListener('click', function() {
+      // Team inputs
+      const teamNumAgents = parseFloat(document.getElementById('teamNumAgents').value) || 0;
+      const teamAvgHourlyRate = parseFloat(document.getElementById('teamAvgHourlyRate').value) || 0;
+      const teamHoursPerAgent = parseFloat(document.getElementById('teamHoursPerAgent').value) || 0;
+      const teamCallsPerMonth = parseFloat(document.getElementById('teamCallsPerMonth').value) || 0;
+      const teamHandleTime = parseFloat(document.getElementById('teamHandleTime').value) || 0;
+      const teamTelephonyCost = parseFloat(document.getElementById('teamTelephonyCost').value) || 0;
+      const teamSoftwareCost = parseFloat(document.getElementById('teamSoftwareCost').value) || 0;
+      const teamConversionRate = parseFloat(document.getElementById('teamConversionRate').value) / 100 || 0;
+      const teamAverageOrder = parseFloat(document.getElementById('teamAverageOrder').value) || 0;
+
+      // AI inputs
+      const aiCostPerMinute = parseFloat(document.getElementById('aiCostPerMinute').value) || 0;
+      const aiHandleTime = parseFloat(document.getElementById('aiHandleTime').value) || 0;
+      const aiFallbackPercentage = parseFloat(document.getElementById('aiFallbackPercentage').value) / 100 || 0;
+      const aiRevenueIncrease = parseFloat(document.getElementById('aiRevenueIncrease').value) / 100 || 0;
+      const aiImplementationCost = parseFloat(document.getElementById('aiImplementationCost').value) || 0;
+
+      // Team cost calculations
+      const teamTotalLaborHours = teamNumAgents * teamHoursPerAgent;
+      const teamLaborCost = teamTotalLaborHours * teamAvgHourlyRate;
+      const teamTelephonyTotal = teamCallsPerMonth * teamTelephonyCost;
+      const teamSoftwareTotal = teamNumAgents * teamSoftwareCost;
+      const teamTotalCost = teamLaborCost + teamTelephonyTotal + teamSoftwareTotal;
+      const teamRevenue = teamCallsPerMonth * teamConversionRate * teamAverageOrder;
+
+      // AI cost calculations
+      const aiTotalMinutes = aiHandleTime * teamCallsPerMonth;
+      const aiCost = aiTotalMinutes * aiCostPerMinute;
+      // Fallback calls requiring human agents
+      const fallbackCalls = teamCallsPerMonth * aiFallbackPercentage;
+      // For fallback calls, human labor time is same as team handle time
+      const fallbackHours = (fallbackCalls * teamHandleTime) / 60;
+      const fallbackLaborCost = fallbackHours * teamAvgHourlyRate;
+      const fallbackTelephonyCost = fallbackCalls * teamTelephonyCost;
+      // AI scenario does not require team software cost per agent (no seats), but may require minimal per agent license; for simplicity, set to zero
+      const aiSoftwareCost = 0;
+      const aiTotalCost = aiCost + fallbackLaborCost + fallbackTelephonyCost;
+
+      // AI revenue
+      const aiNewConversionRate = teamConversionRate * (1 + aiRevenueIncrease);
+      const aiRevenue = teamCallsPerMonth * aiNewConversionRate * teamAverageOrder;
+      const revenueDiff = aiRevenue - teamRevenue;
+      const costSavings = teamTotalCost - aiTotalCost;
+      const netGain = costSavings + revenueDiff;
+      const netProfit = netGain - aiImplementationCost;
+      const investment = aiImplementationCost + aiTotalCost;
+      const roi = investment > 0 ? (netProfit / investment) * 100 : 0;
+      const payback = (costSavings + revenueDiff) > 0 ? (aiImplementationCost / (costSavings + revenueDiff)) : Infinity;
+
+      // Populate results table
+      const tbody = document.getElementById('aiResultsBody');
+      tbody.innerHTML = '';
+      const rows = [
+        {name:'Labor cost per month', team: teamLaborCost, ai: fallbackLaborCost},
+        {name:'Telephony cost per month', team: teamTelephonyTotal, ai: aiCost + fallbackTelephonyCost},
+        {name:'Software cost per month', team: teamSoftwareTotal, ai: aiSoftwareCost},
+        {name:'Total monthly cost', team: teamTotalCost, ai: aiTotalCost},
+        {name:'Monthly revenue', team: teamRevenue, ai: aiRevenue}
+      ];
+      rows.forEach(item => {
+        const row = document.createElement('tr');
+        const nameCell = document.createElement('th');
+        nameCell.textContent = item.name;
+        const teamCell = document.createElement('td');
+        teamCell.textContent = fmtCurrency(item.team);
+        const aiCell = document.createElement('td');
+        aiCell.textContent = fmtCurrency(item.ai);
+        row.appendChild(nameCell);
+        row.appendChild(teamCell);
+        row.appendChild(aiCell);
+        tbody.appendChild(row);
+      });
+      // Summary
+      const summary = document.getElementById('aiSummary');
+      let html = '';
+      html += `<p><strong>Monthly cost savings:</strong> ${fmtCurrency(costSavings)}</p>`;
+      html += `<p><strong>Monthly revenue increase:</strong> ${fmtCurrency(revenueDiff)}</p>`;
+      html += `<p><strong>Net gain (savings + revenue difference):</strong> ${fmtCurrency(netGain)}</p>`;
+      html += `<p><strong>Implementation cost:</strong> ${fmtCurrency(aiImplementationCost)}</p>`;
+      html += `<p><strong>ROI:</strong> ${roi.toFixed(2)}% (based on net profit vs. total investment)</p>`;
+      if (isFinite(payback)) {
+        html += `<p><strong>Estimated payback period:</strong> ${payback.toFixed(2)} month(s)</p>`;
+      } else {
+        html += `<p><strong>Estimated payback period:</strong> Not applicable (no savings)</p>`;
+      }
+      summary.innerHTML = html;
+      document.getElementById('aiResultsSection').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
